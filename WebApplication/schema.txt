@@ -1,0 +1,46 @@
+﻿
+
+DROP TABLE IF EXISTS dbo.Grade
+
+CREATE TABLE [dbo].[Grade](
+	[gradeId] [uniqueidentifier] NOT NULL,
+	[tenantId] [uniqueidentifier] NOT NULL,
+	[studentId] [uniqueidentifier] NOT NULL ,
+	[value] [int] NOT NULL,
+	[createdBy] [uniqueidentifier] NOT NULL,
+	[createdDate] [datetime2](7) NOT NULL,
+	[modifiedBy] [uniqueidentifier] NULL,
+	[modifiedDate] [datetime2](7) NULL,
+	[isDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_grade] PRIMARY KEY CLUSTERED 
+(
+	[gradeId] ASC,
+	[tenantId]  ASC
+)) ON [PRIMARY]
+
+ALTER TABLE Grade
+ADD CONSTRAINT FK_Student
+FOREIGN KEY (studentID, tenantId) REFERENCES Student(studentId, tenantId);
+
+DROP TABLE IF EXISTS dbo.Student
+
+CREATE TABLE [dbo].[Student](
+	[studentId] [uniqueidentifier] NOT NULL,
+	[tenantId] [uniqueidentifier] NOT NULL,
+	[firstname] [nvarchar](250) NOT NULL,
+	[surname] [nvarchar](250) NOT NULL,
+	[birthdate] [datetime2](7) NOT NULL,
+	[createdBy] [uniqueidentifier] NOT NULL,
+	[createdDate] [datetime2](7) NOT NULL,
+	[modifiedBy] [uniqueidentifier] NULL,
+	[modifiedDate] [datetime2](7) NULL,
+	[isDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_student] PRIMARY KEY CLUSTERED 
+(
+	[studentId] ASC,
+	[tenantId]  ASC
+)) ON [PRIMARY]
+
+select * from Grade
+
+select * from Student
